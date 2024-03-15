@@ -56,21 +56,9 @@ class HomeController extends Controller
                 'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Max file size 2MB
             ]);
 
-            $image = ($request->hasFile('image'))
-                ? CommonHelper::fileUpload($request->image, 'upload/user/image')
-                : null;
+            $user = $this->user->store($request);
 
-            $user = User::query()->create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'image' => $image,
-                'password' => $request->password,
-            ]);
-
-            UserAddress::query()->create([
-                'user_id' => $user->id,
-                'address' => json_encode($request->address)
-            ]);
+            $this->user_address->create($user->id,$request);
 
             $notification = array(
                 'message' => 'User created successfully!',

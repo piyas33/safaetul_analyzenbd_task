@@ -20,7 +20,7 @@ class UserRepository implements IUserRepository
 
     }
 
-    public function store($id = null, $collection = [])
+    public function store($collection = [])
     {
         $image = ($collection->hasFile('image'))
             ? CommonHelper::fileUpload($collection->image, 'upload/user/image')

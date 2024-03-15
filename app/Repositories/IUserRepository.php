@@ -10,7 +10,7 @@ interface IUserRepository
 
     public function create();
 
-    public function store($id, $collection = []);
+    public function store($collection = []);
 
     public function view($id);
 
