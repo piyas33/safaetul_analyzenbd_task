@@ -1,17 +1,22 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    if(Auth::check()) {
+        return redirect()->route('home');
+    }
     return view('auth.login');
 });
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class,'index'])->name('home');
+
 
 Route::controller(HomeController::class)->middleware('auth')->prefix('user')->group(function () {
+    Route::get('/home', 'index')->name('home');
     Route::get('/{id}/view', 'view')->name('view');
 
     //create

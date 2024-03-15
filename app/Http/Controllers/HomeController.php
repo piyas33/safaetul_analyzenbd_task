@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use App\Models\UserAddress;
 use App\Repositories\IUserRepository;
@@ -44,17 +45,9 @@ class HomeController extends Controller
         return view('user.create');
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
         try {
-
-            // Validate request
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required|min:8',
-                'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Max file size 2MB
-            ]);
 
             $user = $this->user->store($request);
 
@@ -89,7 +82,7 @@ class HomeController extends Controller
         return view('user.edit', compact('user'));
     }
 
-    public function update($id,Request $request)
+    public function update($id,UserRequest $request)
     {
         try {
 

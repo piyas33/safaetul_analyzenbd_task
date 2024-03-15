@@ -11,7 +11,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item"><a href="{{ url("/home") }}">All User</a></li>
+                            <li class="breadcrumb-item"><a href="{{ url("/user/home") }}">All User</a></li>
                             <li class="breadcrumb-item active">Create user</li>
                         </ol>
                     </div>
@@ -77,6 +77,7 @@
                                     <div class="input-group-append">
                                         <span class="input-group-text">Upload</span>
                                     </div>
+                                    <p id="file_details"></p>
                                 </div>
                             </div>
                         </div>
@@ -113,6 +114,21 @@
                 var button_id = $(this).attr("id");
                 $('#row' + button_id + '').remove();
             });
+        });
+    </script>
+    <script>
+        function showFileDetails () {
+            const name = document.getElementById('fileInput')
+            const fileName = name.files.item(0).name
+            const totalFileSize = name.files.item(0).size
+            document.getElementById('file_details').innerHTML = "Selected File: "+ fileName + '  (' + Math.round(totalFileSize / 1024) + " KB)";
+        };
+    </script>
+    <script>
+        $(document).ready(function() {
+            @if($errors->any())
+            toastr.error('{{ $errors->first() }}');
+            @endif
         });
     </script>
 @endsection

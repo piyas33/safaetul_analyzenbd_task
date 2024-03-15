@@ -1,5 +1,5 @@
 <li class="nav-item">
-    <a href="{{url('/home')}}" class="nav-link {{ request()->is('home') ? 'active' : '' }}">
+    <a href="{{url('user//home')}}" class="nav-link {{ request()->is('user/home') ? 'active' : '' }}">
         <i class="nav-icon fas fa-user-circle"></i>
         <p>User List</p>
     </a>
